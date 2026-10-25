@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Goliath — VPN без компромиссов</title>
+<meta name="description" content="Быстрый и приватный VPN. Подписка за минуту, ссылка сразу в личном кабинете.">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="top">
+  <a class="logo" href="/">GOLIATH</a>
+  <nav>
+    <a href="#plans">Тарифы</a>
+    <a href="#how">Как подключить</a>
+    <button id="authBtn" class="btn ghost">Войти</button>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <p class="eyebrow">VPN нового поколения</p>
+    <h1>Интернет без<br>границ и слежки.</h1>
+    <p class="lead">Быстрые серверы, современные протоколы, подписка на несколько устройств. Регистрация за минуту через Telegram.</p>
+    <div class="cta">
+      <a href="#plans" class="btn">Выбрать тариф</a>
+      <button class="btn ghost" data-open-auth>Личный кабинет</button>
+    </div>
+  </section>
+
+  <section class="features">
+    <div><h3>Скорость</h3><p>Каналы без искусственных ограничений.</p></div>
+    <div><h3>Приватность</h3><p>Никаких логов трафика и лишних данных.</p></div>
+    <div><h3>Устройства</h3><p>Одна ссылка для телефона, ноутбука и роутера.</p></div>
+    <div><h3>Автоматически</h3><p>Оплатили — подписка активна, без ожидания.</p></div>
+  </section>
+
+  <section id="account" class="account" hidden>
+    <h2>Личный кабинет</h2>
+    <div class="card">
+      <div class="row"><span class="muted">Аккаунт</span><b id="accUser"></b></div>
+      <div class="row"><span class="muted">Статус</span><b id="accStatus"></b></div>
+      <div class="row"><span class="muted">Действует до</span><b id="accExp"></b></div>
+      <div id="subBox" hidden>
+        <span class="muted">Ваша ссылка-подписка</span>
+        <div class="copy"><input id="subUrl" readonly><button id="copyBtn" class="btn small">Копировать</button></div>
+      </div>
+      <div id="ordersBox" hidden>
+        <span class="muted">Последние заказы</span>
+        <ul id="orders"></ul>
+      </div>
+      <button id="logoutBtn" class="link">Выйти</button>
+    </div>
+  </section>
+
+  <section id="plans" class="plans">
+    <h2>Тарифы</h2>
+    <div id="planList" class="grid"></div>
+    <p class="muted center">Оплата по СБП. Подписка активируется после подтверждения платежа.</p>
+  </section>
+
+  <section id="how" class="how">
+    <h2>Как подключить</h2>
+    <ol>
+      <li>Оформите подписку и скопируйте ссылку в личном кабинете.</li>
+      <li>Установите приложение: Streisand или Hiddify (iOS/macOS), v2rayNG или Hiddify (Android), Hiddify или Nekoray (Windows).</li>
+      <li>Добавьте подписку по ссылке — серверы загрузятся автоматически.</li>
+    </ol>
+  </section>
+</main>
+
+<footer>© Goliath · Поддержка — в Telegram-боте</footer>
+
+<!-- вход / регистрация -->
+<dialog id="authDlg">
+  <form id="authForm" method="dialog">
+    <h3>Вход и регистрация</h3>
+    <p class="muted">Подтверждение происходит в Telegram — пароли не нужны.</p>
+    <label>Telegram username
+      <input id="fUser" placeholder="@username" autocomplete="off" required>
+    </label>
+    <label>Телефон <span class="muted">(только при регистрации)</span>
+      <input id="fPhone" placeholder="+7 900 000-00-00" inputmode="tel" autocomplete="tel">
+    </label>
+    <p id="authErr" class="err" hidden></p>
+    <div class="actions">
+      <button type="button" class="btn ghost" data-close>Отмена</button>
+      <button class="btn" id="authSubmit">Продолжить</button>
+    </div>
+  </form>
+  <div id="authWait" hidden>
+    <h3>Подтвердите в Telegram</h3>
+    <p class="muted" id="authHint"></p>
+    <a id="botLink" class="btn" target="_blank" rel="noopener">Открыть бота</a>
+    <p class="muted small">Ждём подтверждения…</p>
+    <button type="button" class="link" data-close>Отмена</button>
+  </div>
+</dialog>
+
+<!-- оплата -->
+<dialog id="payDlg">
+  <h3>Оплата <span id="payId"></span></h3>
+  <p>Переведите <b id="payAmount"></b> ₽ по СБП:</p>
+  <pre id="payDetails"></pre>
+  <p>В комментарии укажите: <b id="payComment"></b></p>
+  <div class="actions">
+    <button class="btn ghost" data-close>Закрыть</button>
+    <button class="btn" id="paidBtn">Я оплатил</button>
+  </div>
+  <p id="payDone" class="ok" hidden>Заявка отправлена. Подписка активируется после проверки платежа — вам придёт сообщение в Telegram.</p>
+</dialog>
+
+<script src="/app.js"></script>
+</body>
+</html>
